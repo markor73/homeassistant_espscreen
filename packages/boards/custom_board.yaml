@@ -52,7 +52,7 @@ spi:
   - id: lcd
     clk_pin: GPIO18
     mosi_pin: GPIO23
-    miso_pin: GPIO27
+  
 
   - id: my_touchscreen
     clk_pin: GPIO14
