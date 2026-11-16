@@ -5,3 +5,7 @@ substitutions:
 packages:
   core: !include core.yaml
   board: !include boards/custom_board.yaml
+
+external_components:
+  - source: github://markor73/homeassistant_espscreen@main
+    refresh: 0s
