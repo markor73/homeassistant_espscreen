@@ -5,12 +5,3 @@ substitutions:
 packages:
   core: !include core.yaml
   board: !include boards/custom_board.yaml
-
-external_components:
-  - source:
-      type: git
-      url: https://github.com/markor73/homeassistant_espscreen.git
-      ref: ${GITHUB_REF}
-      path: components
-    refresh: 0s
-    components: [xpt2046, flash_layout, smart_display]
