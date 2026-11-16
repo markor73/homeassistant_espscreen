@@ -79,10 +79,11 @@ touchscreen:
         pullup: true
     data_rate: 2MHz
     threshold: 400
-    swap_xy: false
-    invert_x: false
-    invert_y: false
-    
+    transform:
+      swap_xy: false
+      mirror_x: false
+      mirror_y: false
+      
 # Display ST7789V sul primo bus SPI
 display:
   - platform: mipi_spi
