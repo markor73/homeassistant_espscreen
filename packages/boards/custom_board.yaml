@@ -22,7 +22,7 @@ substitutions:
   PANEL_H: "320"
   DISPLAY_DPI: "143"
   ROTATION_LANDSCAPE: "90"
-  TOUCH_MIRROR_X: "false"
+  TOUCH_MIRROR_X: "true"
   GRID_COLS: "2"
   GRID_ROWS: "3"
   GRID_COLS_PORTRAIT: "1"
