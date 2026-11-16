@@ -1,5 +1,5 @@
 ############################################################
-# ESP Screens - Custom ESP32 D1 Mini (Doppio Bus SPI: VSPI + HSPI)
+# ESP Screens - Custom ESP32 D1 Mini (Doppio Bus SPI)
 ############################################################
 esphome:
   min_version: 2026.6.2
@@ -29,7 +29,6 @@ substitutions:
   GRID_ROWS_PORTRAIT: "4"
   LVGL_BUFFER_SIZE: "12%"
 
-  # Modello ST7789V con invert_colors: true come indicato nel tuo schema
   DISPLAY_MODEL: "ST7789V"
   DISPLAY_DATA_RATE: "40MHz"
   DISPLAY_INVERT_COLORS: "true"
@@ -47,7 +46,7 @@ esp32:
       sram1_as_iram: true
   variant: esp32
 
-# Doppio Bus SPI come da schema (VSPI per Display senza MISO, HSPI per Touch)
+# Doppio Bus SPI separato (Display su VSPI, Touch su HSPI)
 spi:
   - id: lcd
     clk_pin: GPIO18
@@ -58,23 +57,24 @@ spi:
     mosi_pin: GPIO13
     miso_pin: GPIO27
 
-# Retroilluminazione su GPIO22 (BLK)
+# Retroilluminazione su GPIO22
 output:
   - platform: ledc
     pin: GPIO22
     id: gpio_backlight_pwm
     frequency: ${BACKLIGHT_FREQUENCY}
 
-# Touchscreen XPT2046 sul secondo bus SPI (HSPI)
+# Touchscreen XPT2046 sul secondo bus SPI con polling a 20ms
 touchscreen:
   - platform: xpt2046
     id: ts_touch
     spi_id: my_touchscreen
     cs_pin: GPIO26
+    interrupt_pin: GPIO25
     update_interval: 20ms
-    threshold: 200
+    threshold: 400
 
-# Display ST7789V sul primo bus SPI (VSPI)
+# Display ST7789V sul primo bus SPI
 display:
   - platform: mipi_spi
     id: my_display
