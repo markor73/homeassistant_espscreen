@@ -47,7 +47,7 @@ esp32:
       minimum_chip_revision: "3.1"
   variant: esp32
 
-# Doppio Bus SPI separato (Display su VSPI, Touch su HSPI)
+# Doppio Bus SPI separato (Display su VSPI hardware, Touch su SPI software)
 spi:
   - id: lcd
     clk_pin: GPIO18
@@ -57,6 +57,7 @@ spi:
     clk_pin: GPIO14
     mosi_pin: GPIO13
     miso_pin: GPIO27
+    interface_type: software
 
 # Retroilluminazione su GPIO22
 output:
@@ -65,15 +66,15 @@ output:
     id: gpio_backlight_pwm
     frequency: ${BACKLIGHT_FREQUENCY}
 
-# Touchscreen XPT2046 sul secondo bus SPI con polling a 20ms
+# Touchscreen XPT2046 con polling puro a 20ms su bus software (ignora eventuali disturbi su GPIO25)
 touchscreen:
   - platform: xpt2046
     id: ts_touch
     spi_id: my_touchscreen
     cs_pin: GPIO26
     data_rate: 2MHz
-    #update_interval: 50ms
-    threshold: 400
+    update_interval: 20ms
+    threshold: 150
 # Display ST7789V sul primo bus SPI
 display:
   - platform: mipi_spi
