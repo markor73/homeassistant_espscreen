@@ -52,6 +52,7 @@ spi:
   - id: lcd
     clk_pin: GPIO18
     mosi_pin: GPIO23
+    miso_pin: GPIO27
 
   - id: my_touchscreen
     clk_pin: GPIO14
@@ -67,10 +68,10 @@ output:
     frequency: ${BACKLIGHT_FREQUENCY}
 
 # Touchscreen XPT2046
-touchscreen:
+ttouchscreen:
   - platform: xpt2046
     id: ts_touch
-    spi_id: my_touchscreen
+    spi_id: lcd
     cs_pin: GPIO26
     interrupt_pin:
       number: GPIO25
