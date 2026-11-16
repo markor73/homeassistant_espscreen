@@ -66,15 +66,20 @@ output:
     id: gpio_backlight_pwm
     frequency: ${BACKLIGHT_FREQUENCY}
 
-# Touchscreen XPT2046 con polling puro a 20ms su bus software (ignora eventuali disturbi su GPIO25)
+# Touchscreen XPT2046
 touchscreen:
   - platform: xpt2046
     id: ts_touch
     spi_id: my_touchscreen
     cs_pin: GPIO26
+    interrupt_pin:
+      number: GPIO25
+      mode:
+        input: true
+        pullup: true
     data_rate: 2MHz
-    update_interval: 20ms
-    threshold: 150
+    threshold: 700
+    
 # Display ST7789V sul primo bus SPI
 display:
   - platform: mipi_spi
