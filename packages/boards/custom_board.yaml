@@ -2,7 +2,7 @@
 # ESP Screens - Custom ESP32 D1 Mini (Doppio Bus SPI: VSPI + HSPI)
 ############################################################
 esphome:
-  min_version: 2026.9.0
+  min_version: 2026.6.2
 
 packages:
   build: !include ../hardware/esp-idf.yaml
