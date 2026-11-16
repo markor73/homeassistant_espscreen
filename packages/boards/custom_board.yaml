@@ -68,7 +68,7 @@ output:
     frequency: ${BACKLIGHT_FREQUENCY}
 
 # Touchscreen XPT2046
-ttouchscreen:
+touchscreen:
   - platform: xpt2046
     id: ts_touch
     spi_id: lcd
