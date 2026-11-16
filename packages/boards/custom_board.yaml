@@ -71,10 +71,9 @@ touchscreen:
     id: ts_touch
     spi_id: my_touchscreen
     cs_pin: GPIO26
-    interrupt_pin: GPIO25
-    #update_interval: 20ms
+    data_rate: 2MHz
+    #update_interval: 50ms
     threshold: 400
-
 # Display ST7789V sul primo bus SPI
 display:
   - platform: mipi_spi
