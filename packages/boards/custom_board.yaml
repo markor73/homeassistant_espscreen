@@ -78,12 +78,12 @@ touchscreen:
       mode:
         input: true
         pullup: true
-    data_rate: 2MHz
-    threshold: 400
-    transform:
-      swap_xy: false
-      mirror_x: false
-      mirror_y: false
+    #data_rate: 2MHz
+    threshold: 800
+    # transform:
+     # swap_xy: false
+     # mirror_x: false
+     # mirror_y: false
       
 # Display ST7789V sul primo bus SPI
 display:
