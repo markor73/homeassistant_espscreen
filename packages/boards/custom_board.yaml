@@ -73,6 +73,9 @@ touchscreen:
     id: ts_touch
     spi_id: my_touchscreen
     cs_pin: 26
+    mode:
+        input: true
+        pullup: true
     # Polling avoids GPIO36 pull-up errors and noisy PENIRQ edges.
     update_interval: 20ms
     # Diagnosis caught a false corner contact at pressure 422. Deliberate
