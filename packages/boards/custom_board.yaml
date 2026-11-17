@@ -75,9 +75,6 @@ touchscreen:
     cs_pin: 26
     interrupt_pin:
       number: GPIO25
-      mode:
-        input: true
-        pullup: true
     # Polling avoids GPIO36 pull-up errors and noisy PENIRQ edges.
     update_interval: 20ms
     # Diagnosis caught a false corner contact at pressure 422. Deliberate
