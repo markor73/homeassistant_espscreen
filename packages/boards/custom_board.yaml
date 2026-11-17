@@ -66,6 +66,50 @@ output:
     pin: GPIO22
     id: gpio_backlight_pwm
     frequency: ${BACKLIGHT_FREQUENCY}
+# pin per i pulsanti fisici
+light:
+  - platform: monochromatic
+    output: backlight_pwm
+    name: "Retroilluminazione Display"
+    id: display_light
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Pulsante Toggle Luce"
+    on_press:
+      - light.toggle: display_light
+
+  - platform: gpio
+    pin:
+      number: GPIO2
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Pulsante Più Luminosità"
+    on_press:
+      - light.turn_on:
+          id: display_light
+          brightness: !lambda "return min(1.0, id(display_light).current_values.get_brightness() + 0.2);"
+
+  - platform: gpio
+    pin:
+      number: GPIO21
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Pulsante Meno Luminosità"
+    on_press:
+      - light.turn_on:
+          id: display_light
+          brightness: !lambda "return max(0.1, id(display_light).current_values.get_brightness() - 0.2);"
 
 # Touchscreen XPT2046
 touchscreen:
