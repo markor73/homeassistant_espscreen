@@ -72,18 +72,12 @@ touchscreen:
   - platform: xpt2046
     id: ts_touch
     spi_id: my_touchscreen
-    cs_pin: GPIO26
-    interrupt_pin:
-      number: GPIO25
-      mode:
-        input: true
-        pullup: true
-    #data_rate: 2MHz
+    cs_pin: 26
+    # Polling avoids GPIO36 pull-up errors and noisy PENIRQ edges.
+    update_interval: 20ms
+    # Diagnosis caught a false corner contact at pressure 422. Deliberate
+    # contacts measured 936-2643; reject the low-pressure tail on release.
     threshold: 800
-    # transform:
-     # swap_xy: false
-     # mirror_x: false
-     # mirror_y: false
       
 # Display ST7789V sul primo bus SPI
 display:
