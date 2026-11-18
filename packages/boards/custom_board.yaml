@@ -64,11 +64,11 @@ spi:
 output:
   - platform: ledc
     pin: GPIO22
-    id: gpio_backlight_pwm  # <-- Modificato per corrispondere a quello cercato dal pacchetto
+    id: gpio_backlight_pwm  # <-- Deve corrispondere all'ID richiesto
 
 light:
   - platform: monochromatic
-    output: backlight_pwm
+    output: gpio_backlight_pwm
     name: "Retroilluminazione Display"
     id: display_light
 
