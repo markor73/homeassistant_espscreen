@@ -65,10 +65,13 @@ output:
   - platform: ledc
     pin: GPIO19
     id: buzzer_output
+    frequency: 2000Hz  # Frequenza iniziale del buzzer
 
-tone:
-  - output: buzzer_output
-    id: my_buzzer
+light:
+  - platform: monochromatic
+    output: gpio_backlight_pwm
+    name: "Retroilluminazione Display"
+    id: display_light
 
 script:
   - id: play_alert_sound
@@ -80,17 +83,12 @@ script:
       - repeat:
           count: !lambda 'return beep_count;'
           then:
-            - tone.play:
-                tone: my_buzzer
-                frequency: !lambda 'return (float)beep_freq;'
-                duration: 150ms
+            # Imposta la frequenza e accende il buzzer
+            - lambda: 'id(buzzer_output)->set_frequency(beep_freq);'
+            - output.turn_on: buzzer_output
             - delay: 150ms
-
-light:
-  - platform: monochromatic
-    output: gpio_backlight_pwm
-    name: "Retroilluminazione Display"
-    id: display_light
+            - output.turn_off: buzzer_output
+            - delay: 150ms
 
 binary_sensor:
   - platform: gpio
