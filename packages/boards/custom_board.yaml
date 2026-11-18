@@ -44,7 +44,6 @@ esp32:
   framework:
     advanced:
       sram1_as_iram: true
-      #minimum_chip_revision: "3.1"
   variant: esp32
 
 # Doppio Bus SPI separato (Display su VSPI hardware, Touch su SPI software)
@@ -52,19 +51,40 @@ spi:
   - id: lcd
     clk_pin: GPIO18
     mosi_pin: GPIO23
-  
 
   - id: my_touchscreen
     clk_pin: GPIO4
     mosi_pin: GPIO13
     miso_pin: GPIO27
-    #interface: software
 
-# Retroilluminazione su GPIO22
+# Uscite PWM (Retroilluminazione su GPIO22 e Buzzer passivo su GPIO19)
 output:
   - platform: ledc
     pin: GPIO22
-    id: gpio_backlight_pwm  # <-- Deve corrispondere all'ID richiesto
+    id: gpio_backlight_pwm
+  - platform: ledc
+    pin: GPIO19
+    id: buzzer_output
+
+tone:
+  - output: buzzer_output
+    id: my_buzzer
+
+script:
+  - id: play_alert_sound
+    mode: restart
+    parameters:
+      beep_count: int
+      beep_freq: int
+    then:
+      - repeat:
+          count: !lambda 'return beep_count;'
+          then:
+            - tone.play:
+                tone: my_buzzer
+                frequency: !lambda 'return (float)beep_freq;'
+                duration: 150ms
+            - delay: 150ms
 
 light:
   - platform: monochromatic
@@ -110,6 +130,23 @@ binary_sensor:
           id: display_light
           brightness: !lambda "return max(0.1, id(display_light).current_values.get_brightness() - 0.2);"
 
+button:
+  - platform: template
+    name: "Test Allarme Normale"
+    on_press:
+      - script.execute:
+          id: play_alert_sound
+          beep_count: 2
+          beep_freq: 1500
+
+  - platform: template
+    name: "Test Allarme Critico"
+    on_press:
+      - script.execute:
+          id: play_alert_sound
+          beep_count: 5
+          beep_freq: 2500
+
 # Touchscreen XPT2046
 touchscreen:
   - platform: xpt2046
@@ -118,12 +155,9 @@ touchscreen:
     cs_pin: 26
     interrupt_pin:
       number: GPIO25
-    # Polling avoids GPIO36 pull-up errors and noisy PENIRQ edges.
     update_interval: 20ms
-    # Diagnosis caught a false corner contact at pressure 422. Deliberate
-    # contacts measured 936-2643; reject the low-pressure tail on release.
     threshold: 800
-      
+
 # Display ST7789V sul primo bus SPI
 display:
   - platform: mipi_spi
