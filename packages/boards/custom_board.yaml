@@ -64,7 +64,7 @@ spi:
 output:
   - platform: ledc
     pin: GPIO22
-    id: backlight_pwm  # <-- Questo ID deve corrispondere esattamente
+    id: gpio_backlight_pwm  # <-- Modificato per corrispondere a quello cercato dal pacchetto
 
 light:
   - platform: monochromatic
