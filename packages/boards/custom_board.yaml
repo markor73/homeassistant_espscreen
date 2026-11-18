@@ -64,9 +64,8 @@ spi:
 output:
   - platform: ledc
     pin: GPIO22
-    id: gpio_backlight_pwm
-    frequency: ${BACKLIGHT_FREQUENCY}
-# pin per i pulsanti fisici
+    id: backlight_pwm  # <-- Questo ID deve corrispondere esattamente
+
 light:
   - platform: monochromatic
     output: backlight_pwm
