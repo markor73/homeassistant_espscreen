@@ -102,6 +102,18 @@ binary_sensor:
     on_press:
       - light.toggle: display_light
 
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Pulsante Toggle Luce"
+    on_press:
+      - light.toggle: display_light
+
   - platform: gpio
     pin:
       number: GPIO2
@@ -109,11 +121,10 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Pulsante Più Luminosità"
+    name: "Pulsante Pagina Successiva"
     on_press:
-      - light.turn_on:
-          id: display_light
-          brightness: !lambda "return min(1.0, id(display_light).current_values.get_brightness() + 0.2);"
+      # Inserisci qui l'azione per passare alla schermata successiva (es. display.page.next o comando LVGL)
+      - logger.log: "Tasto premuto: Pagina Successiva"
 
   - platform: gpio
     pin:
@@ -122,11 +133,10 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Pulsante Meno Luminosità"
+    name: "Pulsante Pagina Precedente"
     on_press:
-      - light.turn_on:
-          id: display_light
-          brightness: !lambda "return max(0.1, id(display_light).current_values.get_brightness() - 0.2);"
+      # Inserisci qui l'azione per passare alla schermata precedente
+      - logger.log: "Tasto premuto: Pagina Precedente"
 
 button:
   - platform: template
