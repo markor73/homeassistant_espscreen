@@ -89,19 +89,7 @@ script:
             - delay: 150ms
             - output.turn_off: buzzer_output
             - delay: 150ms
-
-binary_sensor:
-  - platform: gpio
-    pin:
-      number: GPIO0
-      inverted: true
-      mode:
-        input: true
-        pullup: true
-    name: "Pulsante Toggle Luce"
-    on_press:
-      - light.toggle: display_light
-
+            
 binary_sensor:
   - platform: gpio
     pin:
