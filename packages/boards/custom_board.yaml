@@ -122,7 +122,7 @@ binary_sensor:
         pullup: true
     name: "Pulsante Pagina Precedente"
     on_press:
-      - lvgl.screen_load: nome_schermata_precedente  # Sostituisci con l'ID reale
+      - lvgl.screen.load: nome_schermata_precedente  # Sostituisci con l'ID reale
 
 
 button:
