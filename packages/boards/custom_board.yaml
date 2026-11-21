@@ -142,7 +142,7 @@ button:
     on_press:
       - script.execute:
           id: play_alert_sound
-          beep_count: 5
+          beep_count: 10
           beep_freq: 2500
 
 # Touchscreen XPT2046
