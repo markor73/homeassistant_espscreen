@@ -111,7 +111,7 @@ binary_sensor:
         pullup: true
     name: "Pulsante Pagina Successiva"
     on_press:
-      - lvgl.screen.show: nome_schermata_successiva  # Sostituisci con l'ID reale della schermata
+      - lvgl.screen_load: nome_schermata_successiva  # Sostituisci con l'ID reale
 
   - platform: gpio
     pin:
@@ -122,8 +122,8 @@ binary_sensor:
         pullup: true
     name: "Pulsante Pagina Precedente"
     on_press:
-      - lvgl.screen.show: nome_schermata_precedente  # Sostituisci con l'ID reale della schermata
-      - lvgl.screen.show: nome_schermata_precedente  # Sostituisci con l'ID reale della schermata
+      - lvgl.screen_load: nome_schermata_precedente  # Sostituisci con l'ID reale
+
 
 button:
   - platform: template
