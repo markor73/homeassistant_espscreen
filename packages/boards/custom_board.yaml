@@ -90,6 +90,7 @@ script:
             - output.turn_off: buzzer_output
             - delay: 150ms
             
+# Pulsanti hardware
 binary_sensor:
   - platform: gpio
     pin:
@@ -109,9 +110,12 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Pulsante Pagina Successiva"
+    name: "Pulsante Aumenta Luminosità"
     on_press:
-      - lvgl.screen_load: nome_schermata_successiva  # Sostituisci con l'ID reale
+      - light.dim_relative:
+          id: display_light
+          relative_brightness: 10%
+          transition_length: 0.2s
 
   - platform: gpio
     pin:
@@ -120,9 +124,12 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Pulsante Pagina Precedente"
+    name: "Pulsante Diminuisci Luminosità"
     on_press:
-      - lvgl.screen.load: nome_schermata_precedente  # Sostituisci con l'ID reale
+      - light.dim_relative:
+          id: display_light
+          relative_brightness: -10%
+          transition_length: 0.2s
 
 
 button:
